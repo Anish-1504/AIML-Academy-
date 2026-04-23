@@ -1,0 +1,63 @@
+/* ============================================================
+   ANIMATIONS v3
+   ============================================================ */
+@keyframes fadeIn { from{opacity:0} to{opacity:1} }
+@keyframes blink  { 0%,100%{opacity:1} 50%{opacity:0} }
+@keyframes pageIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
+@keyframes slideRight { from{opacity:0;transform:translateX(-16px)} to{opacity:1;transform:translateX(0)} }
+@keyframes cellIn { from{transform:scale(0);opacity:0} to{transform:scale(1);opacity:1} }
+
+/* TITLE GLITCH — refined, not garish */
+@keyframes glitch1 { 0%,95%,100%{clip-path:none;transform:none} 96%{clip-path:inset(20% 0 60% 0);transform:translate(-2px,0)} 97%{clip-path:inset(70% 0 10% 0);transform:translate(2px,0)} 98%{clip-path:inset(40% 0 30% 0);transform:translate(-1px,0)} 99%{clip-path:none;transform:none} }
+@keyframes glitch2 { 0%,95%,100%{clip-path:none;transform:none} 96%{clip-path:inset(60% 0 20% 0);transform:translate(2px,0)} 97%{clip-path:inset(10% 0 70% 0);transform:translate(-2px,0)} 98%{clip-path:inset(30% 0 40% 0);transform:translate(1px,0)} 99%{clip-path:none;transform:none} }
+@keyframes titleShimmer { 0%,100%{filter:drop-shadow(0 0 12px rgba(79,140,255,0.7))} 50%{filter:drop-shadow(0 0 24px rgba(79,140,255,0.9)) drop-shadow(0 0 48px rgba(168,85,247,0.4))} }
+
+/* TITLE COMPONENT */
+.hero-title-wrap { position:relative; display:inline-block; line-height:1; }
+.hero-title-main {
+  font-family:var(--font-display); font-weight:900;
+  font-size:clamp(38px,7vw,80px); letter-spacing:6px; line-height:1;
+  background:linear-gradient(135deg,#4f8cff 0%,#00d4ff 35%,#a855f7 70%,#4f8cff 100%);
+  background-size:200% auto;
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+  animation:titleShimmer 4s ease-in-out infinite, gradShift 6s linear infinite;
+  display:block;
+}
+@keyframes gradShift { 0%{background-position:0%} 100%{background-position:200%} }
+.hero-title-ghost {
+  position:absolute; inset:0;
+  font-family:var(--font-display); font-weight:900;
+  font-size:clamp(38px,7vw,80px); letter-spacing:6px; line-height:1;
+  color:var(--cyan); opacity:0.15; pointer-events:none;
+  animation:glitch1 8s infinite;
+}
+.hero-title-ghost2 {
+  position:absolute; inset:0;
+  font-family:var(--font-display); font-weight:900;
+  font-size:clamp(38px,7vw,80px); letter-spacing:6px; line-height:1;
+  color:var(--violet); opacity:0.1; pointer-events:none;
+  animation:glitch2 8s infinite 0.05s;
+}
+
+/* STAGGER */
+.stagger > * { opacity:0; animation:fadeIn .3s ease-out both; }
+.stagger > *:nth-child(1){animation-delay:.05s} .stagger > *:nth-child(2){animation-delay:.10s}
+.stagger > *:nth-child(3){animation-delay:.15s} .stagger > *:nth-child(4){animation-delay:.20s}
+.stagger > *:nth-child(5){animation-delay:.25s} .stagger > *:nth-child(6){animation-delay:.30s}
+.stagger > *:nth-child(7){animation-delay:.35s} .stagger > *:nth-child(8){animation-delay:.40s}
+.stagger > *:nth-child(9){animation-delay:.45s} .stagger > *:nth-child(10){animation-delay:.50s}
+
+/* TYPING CURSOR */
+@keyframes cursor-blink { 0%,100%{border-right-color:var(--cyan)} 50%{border-right-color:transparent} }
+.typing-cursor { border-right:2px solid var(--cyan); animation:cursor-blink .8s step-end infinite; padding-right:3px; }
+
+/* PULSE */
+@keyframes pulse-ring { 0%,100%{box-shadow:0 0 4px rgba(79,140,255,0.3)} 50%{box-shadow:0 0 14px rgba(79,140,255,0.7),0 0 28px rgba(168,85,247,0.2)} }
+.pulse-ring { animation:pulse-ring 2.5s ease-in-out infinite; }
+
+/* FLICKER — subtle CRT */
+@keyframes flicker { 0%,94%,96%,100%{opacity:1} 95%{opacity:.96} }
+body { animation:flicker 12s infinite; }
+
+/* HEATMAP CELL */
+.heatmap-cell { animation:cellIn .3s ease-out both; }

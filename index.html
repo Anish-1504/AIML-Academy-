@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI/ML Academy — Hack the Future</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&family=Share+Tech+Mono&family=Orbitron:wght@400;600;700;900&family=VT323&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/theme.css"/>
+  <link rel="stylesheet" href="css/layout.css"/>
+  <link rel="stylesheet" href="css/components.css"/>
+  <link rel="stylesheet" href="css/animations.css"/>
+</head>
+<body>
+  <canvas id="matrixCanvas"></canvas>
+  <div class="scanlines"></div>
+
+  <!-- BOOT -->
+  <div id="bootScreen">
+    <!-- corner decorations -->
+    <div class="boot-corner boot-corner-tl"></div>
+    <div class="boot-corner boot-corner-tr"></div>
+    <div class="boot-corner boot-corner-bl"></div>
+    <div class="boot-corner boot-corner-br"></div>
+    <!-- horizontal scan line sweep -->
+    <div class="boot-sweep"></div>
+
+    <div class="boot-content">
+      <!-- LOGO BLOCK -->
+      <div class="boot-logo-wrap">
+        <div class="boot-logo-pre">&gt; INITIALISING SYSTEM...</div>
+        <div class="boot-logo" id="bootLogo">AI/ML ACADEMY</div>
+        <div class="boot-logo-ghost" aria-hidden="true">AI/ML ACADEMY</div>
+        <div class="boot-tagline">
+          <span class="boot-tag-item">HACK THE FUTURE</span>
+          <span class="boot-tag-sep">///</span>
+          <span class="boot-tag-item">BANGALORE EDITION</span>
+          <span class="boot-tag-sep">///</span>
+          <span class="boot-tag-item">v3.0</span>
+        </div>
+      </div>
+
+      <!-- SYSTEM INFO ROW -->
+      <div class="boot-sysinfo">
+        <div class="boot-sysinfo-item">
+          <span class="boot-sysinfo-label">KERNEL</span>
+          <span class="boot-sysinfo-val">aiml-5.15.0</span>
+        </div>
+        <div class="boot-sysinfo-item">
+          <span class="boot-sysinfo-label">USER</span>
+          <span class="boot-sysinfo-val">Anish Patil</span>
+        </div>
+        <div class="boot-sysinfo-item">
+          <span class="boot-sysinfo-label">MISSION</span>
+          <span class="boot-sysinfo-val">AIML ENGINEER</span>
+        </div>
+        <div class="boot-sysinfo-item">
+          <span class="boot-sysinfo-label">ETA</span>
+          <span class="boot-sysinfo-val" id="bootEta">90 DAYS</span>
+        </div>
+      </div>
+
+      <!-- DIVIDER -->
+      <div class="boot-divider">
+        <span>&#9472;</span><span class="boot-divider-label">BOOT SEQUENCE</span><span>&#9472;</span>
+      </div>
+
+      <!-- LOG -->
+      <div class="boot-log" id="bootLog"></div>
+
+      <!-- PROGRESS -->
+      <div class="boot-progress-area">
+        <div class="boot-bar-wrap">
+          <div class="boot-bar" id="bootBar"></div>
+          <div class="boot-bar-glow" id="bootBarGlow"></div>
+        </div>
+        <div class="boot-bar-meta">
+          <span class="boot-bar-status" id="bootStatus">LOADING...</span>
+          <span class="boot-bar-pct" id="bootPct">0%</span>
+        </div>
+      </div>
+
+      <!-- BOTTOM ROW -->
+      <div class="boot-bottom">
+        <span>[ PRESS ANY KEY TO SKIP ]</span>
+        <span id="bootClock" style="color:var(--green-boot);"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- APP -->
+  <div id="app" class="hidden">
+    <header class="topbar">
+      <!-- LOGO -->
+      <div class="topbar-logo">
+        <span class="logo-main">AI<span class="logo-sep">/</span><span class="logo-ml-part">ML</span></span>
+        <span class="logo-suffix">Academy</span>
+      </div>
+      <!-- NAV -->
+      <nav class="topbar-nav" id="mainNav">
+        <button class="nav-btn active" data-page="home">Home</button>
+        <button class="nav-btn" data-page="roadmap">Roadmap</button>
+        <button class="nav-btn" data-page="ide">IDE</button>
+        <button class="nav-btn" data-page="timer">Timer</button>
+        <button class="nav-btn" data-page="projects">Projects</button>
+        <button class="nav-btn" data-page="progress">Progress</button>
+      </nav>
+      <!-- STATUS -->
+      <div class="topbar-status">
+        <span class="blink-dot"></span>
+        <span class="xp-disp" id="xpDisplay">0 XP</span>
+      </div>
+    </header>
+
+    <main class="page-container">
+      <div id="page-home"     class="page active"></div>
+      <div id="page-roadmap"  class="page"></div>
+      <div id="page-ide"      class="page no-pad"></div>
+      <div id="page-timer"    class="page"></div>
+      <div id="page-projects" class="page"></div>
+      <div id="page-progress" class="page"></div>
+    </main>
+
+    <div class="toast-terminal" id="toast"></div>
+    <div class="modal-backdrop hidden" id="modalBackdrop">
+      <div class="modal-box">
+        <div class="modal-header" id="modalHeader"></div>
+        <div class="modal-body"   id="modalBody"></div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" id="modalOk">Confirm</button>
+          <button class="btn btn-ghost"   id="modalClose">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/matrix.js"></script>
+  <script src="js/pages/home.js"></script>
+  <script src="js/pages/roadmap.js"></script>
+  <script src="js/pages/ide.js"></script>
+  <script src="js/pages/timer.js"></script>
+  <script src="js/pages/projects.js"></script>
+  <script src="js/pages/progress.js"></script>
+  <script src="js/router.js"></script>
+  <script src="js/boot.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
