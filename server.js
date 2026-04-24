@@ -13,7 +13,7 @@ const path     = require('path');
 const os       = require('os');
 
 const app  = express();
-const PORT = process.env.PORT || 3000; // Local execution server
+const PORT = process.env.PORT || 19099; // Local execution server
 
 app.use(cors());
 app.use(express.json({ limit: '2mb' }));
