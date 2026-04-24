@@ -10,7 +10,7 @@ const cors     = require('cors');
 const { exec, execSync } = require('child_process');
 const fs       = require('fs');
 const path     = require('path');
-const os.platform()       = require('os');
+const os       = require('os');
 
 const app  = express();
 const PORT = process.env.PORT || 3000; // ✅ Dynamic port for Render/Railway
